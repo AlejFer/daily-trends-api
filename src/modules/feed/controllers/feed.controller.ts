@@ -7,7 +7,7 @@ export class FeedController {
   #feedService: FeedService;
 
   constructor(feedService: FeedService) {
-      this.#feedService = feedService;
+    this.#feedService = feedService;
   }
 
   create(): Handler {
