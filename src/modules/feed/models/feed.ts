@@ -1,10 +1,10 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 export enum ExternalSource {
   EL_MUNDO = 'el-mundo',
   EL_PAIS = 'el-pais',
   NONE = 'none',
-};
+}
 
 export interface IFeed {
   id?: String;
@@ -14,7 +14,7 @@ export interface IFeed {
   externalLink?: String;
   externalSource?: ExternalSource;
   date?: Date;
-};
+}
 
 export const FeedSchema = new mongoose.Schema<IFeed>({
   id: { type: String, required: true },

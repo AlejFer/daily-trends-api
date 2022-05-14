@@ -13,7 +13,7 @@ export class Server {
   #datasource: Datasource<any>;
   #logger: ILogger;
 
-  constructor(){
+  constructor() {
     this.#server = express();
 
     this.#server.use(express.json());
@@ -24,14 +24,14 @@ export class Server {
     this.#logger = Container.logger;
   }
 
-  start(){
+  start() {
     this.#datasource.init();
     this.#server.use(RequestLoggerMiddleware(this.#logger));
     this.#rBuilder.run(this.#server);
     this.#server.use(ErrorHandlerMiddleware(this.#logger));
 
     this.#server.listen(config.get('server.port'), () => {
-        console.log(`Listening at ${config.get('server.port')}`);
+      console.log(`Listening at ${config.get('server.port')}`);
     });
   }
 }

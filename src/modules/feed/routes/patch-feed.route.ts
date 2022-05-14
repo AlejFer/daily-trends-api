@@ -11,15 +11,22 @@ export class PatchFeedRoute extends Route {
   }
 
   build(): void {
-    this.router.patch('/:id', validateInput({
-      type: 'object',
-      properties: {
-        id: { type: 'string' },
-      },
-      required: ['id'],
-    }, {
-      caseInsensitive: true,
-      requestProperty: 'params',
-    }), this.#feedController.update());
+    this.router.patch(
+      '/:id',
+      validateInput(
+        {
+          type: 'object',
+          properties: {
+            id: { type: 'string' },
+          },
+          required: ['id'],
+        },
+        {
+          caseInsensitive: true,
+          requestProperty: 'params',
+        }
+      ),
+      this.#feedController.update()
+    );
   }
 }

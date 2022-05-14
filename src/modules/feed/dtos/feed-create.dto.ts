@@ -1,4 +1,4 @@
-import { ExternalSource } from "../models/feed";
+import { ExternalSource } from '../models/feed';
 
 export interface FeedCreateDto {
   description?: String;

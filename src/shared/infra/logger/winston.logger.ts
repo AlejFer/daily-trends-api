@@ -1,15 +1,15 @@
 import { Logger } from 'winston';
-import { ILogger, ILoggerConfig, ILoggerLevel } from "../../domain";
+import { ILogger, ILoggerConfig, ILoggerLevel } from '../../domain';
 import { createRequestLogger } from './winston';
 
 export class WinstonLogger implements ILogger {
   #logger: Logger;
 
-  constructor(config: ILoggerConfig){
+  constructor(config: ILoggerConfig) {
     const level: ILoggerLevel = config.level as ILoggerLevel;
     this.#logger = createRequestLogger(level);
   }
-  
+
   log(level: ILoggerLevel, message: string): void {
     this.#logger.log(level, message);
   }

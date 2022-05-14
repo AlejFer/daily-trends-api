@@ -4,9 +4,9 @@ import { BadRequest } from '../../../domain';
 
 export type InputMap = {
   type: string;
-  properties: Object
+  properties: Object;
   required: Array<string>;
-}
+};
 
 export type PropertyType = {
   type: string;
@@ -17,12 +17,15 @@ export type RequestProperty = 'headers' | 'query' | 'params' | 'body';
 export type ValidatorOptions = {
   caseInsensitive: boolean;
   requestProperty: RequestProperty;
-}
+};
 
-export function validateInput(validatorMap: InputMap, options: ValidatorOptions = { caseInsensitive: true, requestProperty: 'body' }) {
+export function validateInput(
+  validatorMap: InputMap,
+  options: ValidatorOptions = { caseInsensitive: true, requestProperty: 'body' }
+) {
   const validator = new ajv({
-		coerceTypes: true,
-	});
+    coerceTypes: true,
+  });
 
   const isValid = validator.compile(validatorMap);
 
@@ -40,5 +43,5 @@ export function validateInput(validatorMap: InputMap, options: ValidatorOptions 
     }
 
     return next();
-  }
+  };
 }

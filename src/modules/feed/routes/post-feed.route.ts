@@ -11,15 +11,22 @@ export class PostFeedRoute extends Route {
   }
 
   build(): void {
-    this.router.post('/', validateInput({
-      type: 'object',
-      properties: {
-          coordinates: { type: 'string' },
-      },
-      required: [],
-    }, {
-      caseInsensitive: true,
-      requestProperty: 'body',
-    }), this.#feedController.create());
+    this.router.post(
+      '/',
+      validateInput(
+        {
+          type: 'object',
+          properties: {
+            coordinates: { type: 'string' },
+          },
+          required: [],
+        },
+        {
+          caseInsensitive: true,
+          requestProperty: 'body',
+        }
+      ),
+      this.#feedController.create()
+    );
   }
 }

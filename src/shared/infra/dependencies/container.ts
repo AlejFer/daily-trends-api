@@ -11,13 +11,16 @@ export class Container {
   static logger: ILogger = new WinstonLogger(config.get('logger'));
 
   /** Datasource */
-  static datasource: MongoDatasource = new MongoDatasource(config.get('mongo'), Container.logger);
+  static datasource: MongoDatasource = new MongoDatasource(
+    config.get('mongo'),
+    Container.logger
+  );
 
   /** Application Modules */
   static feedModule: FeedModule = new FeedModule();
 
   /** Build Application Routes */
-  static routerBuilder: RouterBuilder = new RouterBuilder(
-    [...Container.feedModule.routes]
-  );
+  static routerBuilder: RouterBuilder = new RouterBuilder([
+    ...Container.feedModule.routes,
+  ]);
 }

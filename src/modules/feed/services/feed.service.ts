@@ -1,7 +1,7 @@
-import { ID } from "src/shared/domain";
-import { FeedCreateDto } from "../dtos/feed-create.dto";
-import { ExternalSource, IFeed } from "../models/feed";
-import { FeedRepository } from "../repositories/feed.repository";
+import { ID } from 'src/shared/domain';
+import { FeedCreateDto } from '../dtos/feed-create.dto';
+import { ExternalSource, IFeed } from '../models/feed';
+import { FeedRepository } from '../repositories/feed.repository';
 
 export class FeedService {
   #feedRepository: FeedRepository;
@@ -19,10 +19,13 @@ export class FeedService {
   }
 
   async update(feed: FeedCreateDto, id: ID): Promise<IFeed | null> {
-    return this.#feedRepository.save({
-      ...feed,
-      id,
-    }, id);
+    return this.#feedRepository.save(
+      {
+        ...feed,
+        id,
+      },
+      id
+    );
   }
 
   async delete(id: ID): Promise<null> {

@@ -1,12 +1,12 @@
-import mongoose from "mongoose";
-import { Datasource, ILogger } from "../../domain";
+import mongoose from 'mongoose';
+import { Datasource, ILogger } from '../../domain';
 
 type IMongoConfig = {
-  host: string,
-  port: string,
-  username: string,
-  password: string,
-  database: string,
+  host: string;
+  port: string;
+  username: string;
+  password: string;
+  database: string;
 };
 
 export class MongoDatasource implements Datasource<mongoose.Mongoose> {
@@ -19,10 +19,12 @@ export class MongoDatasource implements Datasource<mongoose.Mongoose> {
     this.#logger = logger;
   }
 
-  public async init(){
+  public async init() {
     try {
       this.client = await mongoose.connect(
-        `mongodb://${this.#config.username}:${this.#config.password}@${this.#config.host}:${this.#config.port}/${this.#config.database}`
+        `mongodb://${this.#config.username}:${this.#config.password}@${
+          this.#config.host
+        }:${this.#config.port}/${this.#config.database}`
       );
     } catch (error: any) {
       this.#logger.error(error?.message);

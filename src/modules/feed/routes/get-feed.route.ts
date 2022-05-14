@@ -13,15 +13,22 @@ export class GetFeedRoute extends Route {
   build(): void {
     this.router.get('/', this.#feedController.getAll());
     this.router.get('/today', this.#feedController.getToday());
-    this.router.get('/:id', validateInput({
-      type: 'object',
-      properties: {
-        id: { type: 'string' },
-      },
-      required: ['id'],
-    }, {
-      caseInsensitive: true,
-      requestProperty: 'params',
-    }), this.#feedController.getById());
+    this.router.get(
+      '/:id',
+      validateInput(
+        {
+          type: 'object',
+          properties: {
+            id: { type: 'string' },
+          },
+          required: ['id'],
+        },
+        {
+          caseInsensitive: true,
+          requestProperty: 'params',
+        }
+      ),
+      this.#feedController.getById()
+    );
   }
 }

@@ -11,15 +11,22 @@ export class DeleteFeedRoute extends Route {
   }
 
   build(): void {
-    this.router.delete('/:id', validateInput({
-      type: 'object',
-      properties: {
-        id: { type: 'string' },
-      },
-      required: ['id'],
-    }, {
-      caseInsensitive: true,
-      requestProperty: 'params',
-    }), this.#feedController.delete());
+    this.router.delete(
+      '/:id',
+      validateInput(
+        {
+          type: 'object',
+          properties: {
+            id: { type: 'string' },
+          },
+          required: ['id'],
+        },
+        {
+          caseInsensitive: true,
+          requestProperty: 'params',
+        }
+      ),
+      this.#feedController.delete()
+    );
   }
 }
