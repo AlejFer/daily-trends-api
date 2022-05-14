@@ -7,6 +7,9 @@ ENV APP_ROOT="/app/" \
   UID_USR=1000 \
   APP_PORT=5000
 
+ARG NODE_ENV
+ENV NODE_ENV=${NODE_ENV}
+
 EXPOSE ${APP_PORT}
 
 WORKDIR ${APP_ROOT}
@@ -20,13 +23,17 @@ USER ${UID_USR}:${APP_GRP}
 
 USER ${UID_USR}
 
-COPY --chown=${UID_USR}:${APP_GRP} ./package.json ./package-lock.json ./tsconfig.json ${APP_ROOT}
+COPY --chown=${UID_USR}:${APP_GRP} ./init.script.sh ./package.json ./package-lock.json ./tsconfig.json ${APP_ROOT}
 
 COPY --chown=${UID_USR}:${APP_GRP} ./src ${APP_ROOT}/src
+
+COPY --chown=${UID_USR}:${APP_GRP} ./environment ${APP_ROOT}/environment
 
 RUN npm ci
 
 RUN npm run build
+
+RUN ./init.script.sh
 
 USER root
 

@@ -1,6 +1,14 @@
 import convict from 'convict';
 
 const config = convict({
+  app: {
+    environment: {
+      doc: 'App environment',
+      env: 'NODE_ENV',
+      format: ['production', 'staging', 'development'],
+      default: 'development'
+    }
+  },
   logger: {
     level: {
       doc: 'Level for logger',

@@ -3,6 +3,8 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
+      args:
+        NODE_ENV: development
     container_name: daily-trends-api
     image: daily-trends-api:1.0.0
     ports:

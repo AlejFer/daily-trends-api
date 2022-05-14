@@ -1,0 +1,8 @@
+{
+  "app": {
+    "environment": "staging"
+  },
+  "server": {
+    "port": 5000
+  }
+}
