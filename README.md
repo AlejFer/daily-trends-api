@@ -1,7 +1,4 @@
 # daily-trends-api
-
-API that exposes a feed of news, gathered from the newspapers El Mundo and El País through web scrapping technique
-
 <div id="top"></div>
 <!--
 *** Thanks for checking out the Best-README-Template. If you have a suggestion
@@ -94,9 +91,9 @@ _Lets launch the project locally._
    npm run dev
    ```
 
-_You can also launche all the project from `docker-compose.yml`._
+_You can also launch all the project from `docker-compose.yml`._
 
-1. Launch API with docker `docker-compose.mongo.yml`
+1. Launch API with docker `docker-compose.yml`
    ```sh
    docker-compose up
    ```
@@ -118,6 +115,7 @@ API docs.
 
 * Feed Model
   ```txt
+  FeedDTO
    {
      "date": "2022-05-15",
      "header": "Eurovisión",
