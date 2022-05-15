@@ -2,9 +2,16 @@ import { validateInput } from '../../../shared/infra/http/routes-handlers';
 import { Route } from '../../../shared/domain';
 import { FeedController } from '../controllers/feed.controller';
 
+/**
+ * GetFeedRoute Route Implementation
+ */
 export class GetFeedRoute extends Route {
   #feedController: FeedController;
 
+  /**
+   * Constructor
+   * @param feedController Controller
+   */
   constructor(feedController: FeedController) {
     super('feed');
     this.#feedController = feedController;

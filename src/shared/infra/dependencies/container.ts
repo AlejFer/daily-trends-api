@@ -6,6 +6,9 @@ import { MongoDatasource } from '../datasource/mongodb.datasource';
 import { RouterBuilder } from '../http/routes/router-builder';
 import { WinstonLogger } from '../logger/winston.logger';
 
+/**
+ * Base dependencies definition
+ */
 export class Container {
   /** Logger */
   static logger: ILogger = new WinstonLogger(config.get('logger'));

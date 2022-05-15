@@ -2,6 +2,9 @@ import mongoose from 'mongoose';
 import { BaseRepository, Repository, ID } from '../../../shared/domain';
 import { ExternalSource, FeedSchema, IFeed } from '../models/feed';
 
+/**
+ * FeedRepository Class Implementation
+ */
 export class FeedRepository
   extends BaseRepository
   implements Repository<IFeed>
@@ -42,6 +45,12 @@ export class FeedRepository
     return this.#model.find();
   }
 
+  /**
+   * Looks for Feeds in the given range of dates and from internal source
+   * @param datefrom From which date to look for
+   * @param dateTo Until which date to look for
+   * @returns Array of Feeds
+   */
   async getByDateRangeNoProviders(
     datefrom: Date,
     dateTo: Date
@@ -55,12 +64,17 @@ export class FeedRepository
     });
   }
 
-  async delete(id: ID): Promise<null> {
+  async delete(id: ID): Promise<IFeed | null> {
     return this.#model.findOneAndDelete({
       id,
     });
   }
 
+  /**
+   * Save Feed when it doesn't previously exists
+   * @param value Feed to save
+   * @returns Saved Feed
+   */
   async validateAndSave(value: IFeed): Promise<IFeed | null> {
     if (value) {
       const dateTo = new Date();

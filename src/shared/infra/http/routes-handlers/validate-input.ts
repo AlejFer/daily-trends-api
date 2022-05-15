@@ -2,23 +2,34 @@ import { Request, Response, NextFunction } from 'express';
 import ajv from 'ajv';
 import { BadRequest } from '../../../domain';
 
+/**
+ * InputMap type definition
+ */
 export type InputMap = {
   type: string;
-  properties: Object;
+  properties: Record<string, unknown>;
   required: Array<string>;
 };
 
-export type PropertyType = {
-  type: string;
-};
-
+/**
+ * RequestProperty type definition
+ */
 export type RequestProperty = 'headers' | 'query' | 'params' | 'body';
 
+/**
+ * ValidatorOptions type definition
+ */
 export type ValidatorOptions = {
   caseInsensitive: boolean;
   requestProperty: RequestProperty;
 };
 
+/**
+ * Validates input on endpoint request
+ * @param validatorMap InputMap to validate against
+ * @param options Validator Options
+ * @returns Handler
+ */
 export function validateInput(
   validatorMap: InputMap,
   options: ValidatorOptions = { caseInsensitive: true, requestProperty: 'body' }
@@ -31,7 +42,7 @@ export function validateInput(
 
   return async (req: Request, _res: Response, next: NextFunction) => {
     if (options.caseInsensitive) {
-      const component: Record<string, any> = {};
+      const component: Record<string, unknown> = {};
       Object.keys(req[options.requestProperty]).forEach((key: string) => {
         component[key.toLowerCase()] = req[options.requestProperty][key];
       });

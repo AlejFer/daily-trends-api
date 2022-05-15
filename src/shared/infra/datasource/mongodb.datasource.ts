@@ -1,6 +1,9 @@
 import mongoose from 'mongoose';
 import { Datasource, ILogger } from '../../domain';
 
+/**
+ * Mongo config definition
+ */
 type IMongoConfig = {
   host: string;
   port: string;
@@ -9,11 +12,24 @@ type IMongoConfig = {
   database: string;
 };
 
-export class MongoDatasource implements Datasource<mongoose.Mongoose> {
+/**
+ * Mongoose type definition
+ */
+export type Mongoose = mongoose.Mongoose;
+
+/**
+ * Mongo Datasource Implementation
+ */
+export class MongoDatasource implements Datasource<Mongoose> {
   #config: IMongoConfig;
   #logger: ILogger;
-  client: mongoose.Mongoose | undefined;
+  client: Mongoose | undefined;
 
+  /**
+   * Constructor
+   * @param config Datasource config
+   * @param logger Logger
+   */
   constructor(config: IMongoConfig, logger: ILogger) {
     this.#config = config;
     this.#logger = logger;
@@ -26,8 +42,8 @@ export class MongoDatasource implements Datasource<mongoose.Mongoose> {
           this.#config.host
         }:${this.#config.port}/${this.#config.database}`
       );
-    } catch (error: any) {
-      this.#logger.error(error?.message);
+    } catch (error: unknown) {
+      this.#logger.error((error as Error)?.message);
     }
   }
 }

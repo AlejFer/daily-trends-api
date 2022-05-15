@@ -1,5 +1,7 @@
 import convict from 'convict';
-
+/**
+ * Config schema definition
+ */
 const config = convict({
   app: {
     environment: {

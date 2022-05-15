@@ -3,6 +3,11 @@ import winston from 'winston';
 
 const consoleLog = new winston.transports.Console();
 
+/**
+ * Create Winston Logger for console transport
+ * @param logLevel INFO | DEBUG | WARN | ERROR
+ * @returns winston.Logger Logger
+ */
 export function createRequestLogger(logLevel?: ILoggerLevel): winston.Logger {
   const requestLogger = winston.createLogger({
     format: getRequestLogFormatter(),
@@ -12,6 +17,10 @@ export function createRequestLogger(logLevel?: ILoggerLevel): winston.Logger {
   return requestLogger;
 }
 
+/**
+ * Get the predefine format for a Winston Logger
+ * @returns winston.Logform.Format Logger Format
+ */
 function getRequestLogFormatter(): winston.Logform.Format {
   const { combine, timestamp, printf } = winston.format;
 

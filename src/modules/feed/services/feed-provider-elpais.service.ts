@@ -2,6 +2,9 @@ import { IScraper, BaseScraper, ILogger } from '../../../shared/domain/';
 import { ExternalSource, IFeed } from '../models/feed';
 import { FeedRepository } from '../repositories/feed.repository';
 
+/**
+ * FeedProviderElPaisService Scraper Implementation for ELPAIS provider
+ */
 export class FeedProviderElPaisService
   extends BaseScraper
   implements IScraper<IFeed>
@@ -9,10 +12,17 @@ export class FeedProviderElPaisService
   #PROVIDER_URL = 'https://elpais.com';
   #PROVIDER_AMOUNT_FEEDS = 5;
   #feedRepository: FeedRepository;
+
+  /**
+   * Constructor
+   * @param logger Logger
+   * @param feedRepository Feed Repository
+   */
   constructor(logger: ILogger, feedRepository: FeedRepository) {
     super(logger);
     this.#feedRepository = feedRepository;
   }
+
   async getContent(): Promise<IFeed[]> {
     const $ = await this.load(this.#PROVIDER_URL);
     const feeds: IFeed[] = [];

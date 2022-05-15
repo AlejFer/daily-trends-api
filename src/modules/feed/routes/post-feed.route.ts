@@ -2,9 +2,16 @@ import { validateInput } from '../../../shared/infra/http/routes-handlers';
 import { Route } from '../../../shared/domain';
 import { FeedController } from '../controllers/feed.controller';
 
+/**
+ * PostFeedRoute Route Implementation
+ */
 export class PostFeedRoute extends Route {
   #feedController: FeedController;
 
+  /**
+   * Constructor
+   * @param feedController Controller
+   */
   constructor(feedController: FeedController) {
     super('feed');
     this.#feedController = feedController;
@@ -17,9 +24,14 @@ export class PostFeedRoute extends Route {
         {
           type: 'object',
           properties: {
-            coordinates: { type: 'string' },
+            description: { type: 'string' },
+            header: { type: 'string' },
+            figure: { type: 'string' },
+            externalLink: { type: 'string' },
+            externalSource: { type: 'string' },
+            date: { type: 'string' },
           },
-          required: [],
+          required: ['date', 'header'],
         },
         {
           caseInsensitive: true,

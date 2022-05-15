@@ -11,7 +11,5 @@ else
 fi
 echo "ENV = $CONFIG"
 echo "ENV = $NODE_ENV"
-sleep 5
 cp ./environment/$CONFIG/config.json /app/dist/config/
 echo "Config updated for env $CONFIG"
-sleep 5

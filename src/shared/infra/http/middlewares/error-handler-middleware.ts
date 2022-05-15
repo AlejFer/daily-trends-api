@@ -1,6 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
 import { ErrorModel, InternalServer, ILogger } from '../../../domain';
 
+/**
+ * Creates middleware to handle logging and response for unexpected errors
+ * @param logger Logger
+ * @returns Middleware
+ */
 export function ErrorHandlerMiddleware(logger: ILogger) {
   return (err: Error, _req: Request, res: Response, next: NextFunction) => {
     if (err) {

@@ -1,19 +1,33 @@
+/**
+ * Error Model Abstraction
+ */
 export class ErrorModel extends Error {
-  private _statusMessage: string;
+  #statusMessage: string;
+  #statusCode: number;
 
-  private _statusCode: number;
-
+  /**
+   * Constructor
+   * @param statusMsg Default status message
+   * @param statusCode Default status code
+   * @param message Given error message
+   */
   constructor(statusMsg: string, statusCode: number, message: string) {
     super(message);
-    this._statusMessage = statusMsg;
-    this._statusCode = statusCode;
+    this.#statusMessage = statusMsg;
+    this.#statusCode = statusCode;
   }
 
+  /**
+   * Get status message
+   */
   get statusMessage(): string {
-    return this._statusMessage;
+    return this.#statusMessage;
   }
 
+  /**
+   * get status code
+   */
   get statusCode(): number {
-    return this._statusCode;
+    return this.#statusCode;
   }
 }
