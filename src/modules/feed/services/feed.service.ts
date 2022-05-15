@@ -11,7 +11,7 @@ export class FeedService {
   }
 
   async create(feed: FeedCreateDto): Promise<IFeed | null> {
-    let externalSource = feed.externalSource || ExternalSource.NONE;
+    const externalSource = feed.externalSource || ExternalSource.NONE;
     return this.#feedRepository.save({
       ...feed,
       externalSource,
@@ -36,11 +36,11 @@ export class FeedService {
     return this.#feedRepository.getById(id);
   }
 
-  async getToday(): Promise<IFeed[]> {
+  async getTodayNoProviders(): Promise<IFeed[]> {
     const toDate = new Date();
     const fromDate = new Date(toDate);
     fromDate.setHours(0, 0, 0, 0);
-    return this.#feedRepository.getByDateRange(fromDate, toDate);
+    return this.#feedRepository.getByDateRangeNoProviders(fromDate, toDate);
   }
 
   async getAll(): Promise<IFeed[]> {

@@ -17,7 +17,7 @@ export class Container {
   );
 
   /** Application Modules */
-  static feedModule: FeedModule = new FeedModule();
+  static feedModule: FeedModule = new FeedModule(Container.logger);
 
   /** Build Application Routes */
   static routerBuilder: RouterBuilder = new RouterBuilder([

@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import { BaseRepository, Repository, ID } from '../../../shared/domain';
-import { FeedSchema, IFeed } from '../models/feed';
+import { ExternalSource, FeedSchema, IFeed } from '../models/feed';
 
 export class FeedRepository
   extends BaseRepository
@@ -42,8 +42,12 @@ export class FeedRepository
     return this.#model.find();
   }
 
-  async getByDateRange(datefrom: Date, dateTo: Date): Promise<IFeed[]> {
+  async getByDateRangeNoProviders(
+    datefrom: Date,
+    dateTo: Date
+  ): Promise<IFeed[]> {
     return this.#model.find({
+      externalSource: ExternalSource.NONE,
       date: {
         $gte: datefrom,
         $lte: dateTo,
@@ -55,5 +59,27 @@ export class FeedRepository
     return this.#model.findOneAndDelete({
       id,
     });
+  }
+
+  async validateAndSave(value: IFeed): Promise<IFeed | null> {
+    if (value) {
+      const dateTo = new Date();
+      const datefrom = new Date(dateTo);
+      datefrom.setHours(0, 0, 0, 0);
+      const found = await this.#model.findOne({
+        header: value.header,
+        date: {
+          $gte: datefrom,
+          $lte: dateTo,
+        },
+      });
+      if (!found) {
+        const id = this.generateID();
+        value.id = id;
+        const feed = await this.#model.create(value);
+        return feed.save();
+      }
+    }
+    return null;
   }
 }

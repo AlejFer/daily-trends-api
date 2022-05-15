@@ -1,13 +1,21 @@
 import { NextFunction, Request, Response } from 'express';
-import { BadRequest, Handler, NotFound } from '../../../shared/domain';
+import {
+  BadRequest,
+  Handler,
+  IScraper,
+  NotFound,
+} from '../../../shared/domain';
 import { FeedCreateDto } from '../dtos/feed-create.dto';
+import { IFeed } from '../models/feed';
 import { FeedService } from '../services/feed.service';
 
 export class FeedController {
   #feedService: FeedService;
+  #scraperServices: IScraper<IFeed>[];
 
-  constructor(feedService: FeedService) {
+  constructor(feedService: FeedService, scraperServices: IScraper<IFeed>[]) {
     this.#feedService = feedService;
+    this.#scraperServices = scraperServices;
   }
 
   create(): Handler {
@@ -69,9 +77,13 @@ export class FeedController {
 
   getToday(): Handler {
     return async (_req: Request, res: Response, next: NextFunction) => {
+      const feeds: IFeed[] = [];
       try {
-        const feed = await this.#feedService.getToday();
-        res.send(feed).status(200);
+        for (const service of this.#scraperServices) {
+          feeds.push(...(await service.getContent()));
+        }
+        feeds.push(...(await this.#feedService.getTodayNoProviders()));
+        res.send(feeds).status(200);
       } catch (error) {
         next(error);
       }

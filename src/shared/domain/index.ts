@@ -6,3 +6,5 @@ export * from './handler';
 export * from './error';
 export * from './datasource';
 export * from './logger';
+export * from './scraper';
+export * from './base-scraper';

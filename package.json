@@ -23,6 +23,8 @@
   "homepage": "https://github.com/AlejFer/daily-trends-api#readme",
   "dependencies": {
     "ajv": "^8.9.0",
+    "axios": "^0.27.2",
+    "cheerio": "^1.0.0-rc.10",
     "convict": "^6.2.1",
     "express": "^4.17.2",
     "mongoose": "^6.3.3",
